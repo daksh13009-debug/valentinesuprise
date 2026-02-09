@@ -1,0 +1,263 @@
+v<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Valentine Bestie Surprise</title>
+
+<style>
+body{
+  margin:0;
+  overflow:hidden;
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(120deg,#ffb6c1,#87cefa,#ffc0cb,#add8e6);
+  background-size:500% 500%;
+  animation:bgMove 20s ease infinite;
+  color:#fff; /* default text color */
+}
+
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* glow overlay */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at top,rgba(255,255,255,.25),transparent 70%);
+  pointer-events:none;
+}
+
+/* page layout */
+.page{
+  position:absolute;
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+  transition:transform 1s;
+}
+
+h1{
+  font-size:2rem;
+  color:#ff69b4; /* vibrant pink */
+  text-shadow:0 0 15px rgba(255,182,193,.6);
+}
+
+p{
+  max-width:420px;
+  line-height:1.6;
+  color:#fff; /* white text for readability */
+}
+
+button{
+  padding:12px 24px;
+  border:none;
+  border-radius:30px;
+  background:#ff69b4; /* pink button */
+  color:white;
+  font-size:1rem;
+  margin-top:20px;
+  cursor:pointer;
+  box-shadow:0 6px 15px rgba(255,105,180,.4);
+  transition:transform .2s;
+}
+button:hover{
+  transform:scale(1.05);
+}
+
+input{
+  padding:10px 16px;
+  border:none;
+  border-radius:20px;
+  text-align:center;
+  font-size:1rem;
+  margin-top:10px;
+}
+
+/* cards */
+.card{
+  background:rgba(255,182,193,0.3); /* transparent pink card */
+  padding:14px;
+  border-radius:15px;
+  margin:8px;
+  width:260px;
+  color:#fff;
+  box-shadow:0 6px 18px rgba(255,105,180,.25);
+  animation:pop .6s ease forwards;
+  opacity:0;
+  transform:scale(.8);
+}
+
+@keyframes pop{
+  to{opacity:1;transform:scale(1);}
+}
+
+/* floating hearts */
+.heart{
+  position:absolute;
+  font-size:20px;
+  animation:float 7s linear infinite;
+}
+
+@keyframes float{
+  0%{transform:translateY(110vh);opacity:0}
+  50%{opacity:1}
+  100%{transform:translateY(-10vh);opacity:0}
+}
+
+/* tap burst */
+.burst{
+  position:absolute;
+  font-size:18px;
+  pointer-events:none;
+  animation:burst 1s ease-out forwards;
+}
+
+@keyframes burst{
+  to{transform:translate(var(--x),var(--y)) scale(.5);opacity:0}
+}
+
+/* fireworks */
+.fire{
+  position:absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  animation:fire 1.4s ease-out forwards;
+}
+
+@keyframes fire{
+  to{
+    transform:translate(var(--x),var(--y)) scale(0);
+    opacity:0;
+  }
+}
+
+/* page positions */
+#p1{transform:translateX(0)}
+#p2,#pPass,#p3{transform:translateX(100%)}
+</style>
+</head>
+
+<body>
+
+<script>
+/* floating hearts */
+for(let i=0;i<35;i++){
+ let h=document.createElement("div");
+ h.className="heart";
+ h.innerHTML="💌💘💗🥀💖❤️✨";
+ h.style.left=Math.random()*100+"%";
+ h.style.animationDelay=Math.random()*7+"s";
+ document.body.appendChild(h);
+}
+
+/* tap heart burst */
+document.addEventListener("click",(e)=>{
+ for(let i=0;i<10;i++){
+  let b=document.createElement("div");
+  b.className="burst";
+  b.innerHTML="💖💗🥀💌💘";
+  b.style.left=e.clientX+"px";
+  b.style.top=e.clientY+"px";
+  b.style.setProperty('--x',(Math.random()-0.5)*120+"px");
+  b.style.setProperty('--y',(Math.random()-0.5)*120+"px");
+  document.body.appendChild(b);
+  setTimeout(()=>b.remove(),1000);
+ }
+});
+</script>
+
+<!-- PAGE 1 -->
+<div class="page" id="p1">
+<h1>Happy Valentine’s Day
+Misthi aka mistyyy 💖</h1>
+<p>
+Tu bestie hai… but premium edition wali 😌  
+Drama unlimited, friendship lifetime pack 😂
+Aur sunn isske badd mujhse kalesh na karo🤨
+</p>
+<button onclick="next('p1','p2')">Dihan se kholo issko abb😌</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="p2">
+<h1>Aise hi kuch sawaal 😏</h1>
+
+<div class="card">Sach sach bata… meri yaad aati hai kabhi? 😏</div>
+<div class="card">Bestie ho ya limited edition crush? 😂</div>
+<div class="card">Agar kbhi time mile humhare sath bhi chalo kbhi ghumne chiji khilao ga aur jhumke bhi dilo ga? 💌</div>
+<div class="card">Like toh tu bhi karti h mereko bss bolti na??🤧🤨😂??</div>
+
+<button onclick="next('p2','pPass')">Chal abb kuch special🔒</button>
+</div>
+
+<!-- PASSWORD PAGE -->
+<div class="page" id="pPass">
+<h1>Secret lock 🔐</h1>
+<p>
+Hint: jis din humhare pheli baar baat hui thi…  
+us din ki date hi password hai 😌✨
+</p>
+<input id="pass" placeholder="Enter password">
+<button onclick="checkPass()">Unlock</button>
+<p id="wrong" style="color:#ff4d4d"></p>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="p3">
+<h1>Uper wali line bhot such ke likhi h toh dihan se🎀</h1>
+<p>
+February one four is coming and I am one for you.
+I know we’re besties and I respect everything you feel.
+But if there’s even 1% chance…
+will you be my Valentine? 💖
+</p>
+<p>No pressure. Just a little wish from someone who cares ✨
+haa haa answer toh mereko bhi pta per meri answer ko wrong karne
+ka chance h tere pe toh dihan se🤨</p>
+<button onclick="fireworks()">bss itna hi hua merese🎆
+aur jada tu deverse bhi na karti🤧</button>
+</div>
+
+<script>
+function next(a,b){
+ document.getElementById(a).style.transform="translateX(-100%)";
+ document.getElementById(b).style.transform="translateX(0)";
+}
+
+function checkPass(){
+ if(document.getElementById("pass").value==="270625"){
+  next('pPass','p3');
+ }else{
+  document.getElementById("wrong").innerText="Hmm pta hi tha galat dale gi🤧\ndubra dal shi yadd karke😒";
+ }
+}
+
+/* fireworks */
+function fireworks(){
+ for(let i=0;i<120;i++){
+  let f=document.createElement("div");
+  f.className="fire";
+  f.style.left="50%";
+  f.style.top="60%";
+  f.style.background=["#ff91c8","#ffd700","#cba0ff","#ff6fae"][Math.floor(Math.random()*4)];
+  f.style.setProperty('--x',(Math.random()-0.5)*400+"px");
+  f.style.setProperty('--y',(Math.random()-0.5)*400+"px");
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),1400);
+ }
+}
+</script>
+
+</body>
+</html>
+

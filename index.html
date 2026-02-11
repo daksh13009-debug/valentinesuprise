@@ -1,4 +1,4 @@
-v<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -42,7 +42,7 @@ body::after{
   align-items:center;
   text-align:center;
   padding:20px;
-  transition:transform 1s;
+  transition:transform 1s ease;
 }
 
 h1{
@@ -71,6 +71,10 @@ button{
 }
 button:hover{
   transform:scale(1.05);
+}
+
+button:active{
+  transform:scale(0.95);
 }
 
 input{
@@ -178,7 +182,7 @@ document.addEventListener("click",(e)=>{
 
 <!-- PAGE 1 -->
 <div class="page" id="p1">
-<h1>Happy Valentine’s Day💗
+<h1>Happy Valentine's Day💗
 Misthi aka mistyyy 💖</h1>
 <p>
 Tu bestie hai… but premium edition wali 😌  
@@ -217,8 +221,8 @@ us din ki date hi password hai 😌✨
 <h1>Uper wali line bhot such ke likhi h toh dihan se🎀</h1>
 <p>
 February one four is coming and I am one for you.
-I know we’re besties and I respect everything you feel.
-But if there’s even 1% chance…
+I know we're besties and I respect everything you feel.
+But if there's even 1% chance…
 will you be my Valentine? 💖
 </p>
 <p>No pressure. Just a little wish from someone who cares ✨
@@ -231,9 +235,14 @@ aur jada tu deverse bhi na karti🤧</button>
 </div>
 
 <script>
-function next(a,b){
- document.getElementById(a).style.transform="translateX(-100%)";
- document.getElementById(b).style.transform="translateX(0)";
+function next(a, b) {
+  let fromEl = document.getElementById(a);
+  let toEl = document.getElementById(b);
+  
+  if (fromEl && toEl) {
+    fromEl.style.transform = "translateX(-100%)";
+    toEl.style.transform = "translateX(0)";
+  }
 }
 
 function checkPass(){
@@ -261,5 +270,4 @@ function fireworks(){
 </script>
 
 </body>
-</html>    
-
+</html>
